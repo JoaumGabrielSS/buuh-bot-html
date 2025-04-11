@@ -76,6 +76,28 @@
       right: 10px;
       border: 2px solid #55ddff;
     }
+    .botao-discord {
+      display: inline-block;
+      margin: 20px auto;
+      padding: 14px 40px;
+      background-color: #7289da;
+      border-radius: 30px;
+      color: white;
+      font-size: 1em;
+      text-decoration: none;
+      animation: entrada 1.5s ease, pulse 2s infinite;
+      box-shadow: 0 0 12px rgba(255, 255, 255, 0.4);
+      position: relative;
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.08); box-shadow: 0 0 25px rgba(255, 255, 255, 0.6); }
+      100% { transform: scale(1); }
+    }
+    @keyframes entrada {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
   </style>
 </head>
 <body>
@@ -118,7 +140,7 @@
     </a>
   </header>
 
-  <img src="https://media1.tenor.com/m/CE-lN924D-cAAAAd/brain-dump-max-g.gif" class="switch-mode" id="mode-switch" alt="switch">
+  <img src="https://media1.tenor.com/m/CE-lN924D-cAAAAd/brain-dump-max-g.gif" class="switch-mode" id="mode-switch" alt="switch" style="position: fixed; top: 20px; right: 20px; width: 60px; cursor: pointer; z-index: 1000;">
   <div id="mode-label" style="position: fixed; top: 85px; right: 10px; font-size: 0.6em; background: rgba(0,0,0,0.5); padding: 4px 10px; border-radius: 8px; z-index: 1000;">Modo Noite</div>
 
   <footer style="position: fixed; bottom: 10px; width: 100%; font-size: 0.6em; color: #ccc; text-align: center;">
