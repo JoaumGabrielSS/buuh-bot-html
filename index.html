@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>Buuh Bot — Discord</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" href="https://media1.tenor.com/m/AgPB0b_4FfUAAAAC/deadpixels-dpgc.gif">
+  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/2111/2111370.png">
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -16,95 +16,99 @@
       padding: 0;
       font-family: 'Press Start 2P', cursive;
       color: white;
+      background-image: var(--bg-night);
       background-size: cover;
       background-position: center;
-      background-repeat: repeat;
+      background-repeat: no-repeat;
       transition: background-image 0.5s ease;
       min-height: 100vh;
-      overflow-x: hidden;
     }
     body.day {
       background-image: var(--bg-day);
     }
-    .stars img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      position: absolute;
-      top: 0;
-      left: 0;
-      z-index: -1;
-      pointer-events: none;
+    header {
+      text-align: center;
+      padding: 40px 20px 20px;
     }
-    .lanterna {
-      position: fixed;
-      top: 0;
-      left: 0;
-      pointer-events: none;
-      width: 100%;
-      height: 100%;
-      background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(255,255,255,0.05) 0%, transparent 300px);
-      z-index: 5;
-    }
-    .floating-ghost {
-      position: fixed;
-      width: 50px;
-      top: 0;
-      animation: floatGhost 15s linear infinite;
-      z-index: 1;
-    }
-    @keyframes floatGhost {
-      0%   { left: -60px; top: 10%; }
-      25%  { top: 30%; }
-      50%  { left: 100%; top: 50%; }
-      75%  { top: 60%; }
-      100% { left: -60px; top: 20%; }
+    header h1 {
+      font-size: 1.5em;
+      margin: 0;
+      color: #ffffff;
+      text-shadow: 2px 2px 4px #000000;
     }
     .botao-discord {
       display: inline-block;
       margin: 20px auto;
-      padding: 14px 40px;
+      padding: 12px 30px;
       background-color: #7289da;
       border-radius: 30px;
       color: white;
-      font-size: 1em;
+      font-size: 0.9em;
       text-decoration: none;
-      animation: entrada 1.5s ease, pulse 2s infinite;
-      box-shadow: 0 0 12px rgba(255, 255, 255, 0.4);
+      animation: pulse 2s infinite;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
       position: relative;
     }
     @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.08); box-shadow: 0 0 25px rgba(255, 255, 255, 0.6); }
-      100% { transform: scale(1); }
+      0% { transform: scale(1); box-shadow: 0 0 10px rgba(255, 255, 255, 0.3); }
+      50% { transform: scale(1.05); box-shadow: 0 0 25px rgba(255, 255, 255, 0.6); }
+      100% { transform: scale(1); box-shadow: 0 0 10px rgba(255, 255, 255, 0.3); }
     }
-    @keyframes entrada {
-      from { opacity: 0; transform: translateY(-20px); }
-      to { opacity: 1; transform: translateY(0); }
+    .switch-mode {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      cursor: pointer;
+      z-index: 1000;
+      width: 60px;
+    }
+    #mode-label {
+      position: fixed;
+      top: 85px;
+      right: 10px;
+      font-size: 0.6em;
+      background: rgba(0,0,0,0.5);
+      padding: 4px 10px;
+      border-radius: 8px;
+      z-index: 1000;
     }
   </style>
 </head>
 <body>
-  <div class="stars">
-    <img src="https://media.tenor.com/nVOVeIZDsO8AAAAi/lukass-lukass-discord-server.gif" alt="estrelas animadas">
-  </div>
-  <div class="lanterna" id="lanterna"></div>
-  <img src="https://media.tenor.com/pgYYhbxlmEIAAAAi/ghost-spirits.gif" class="floating-ghost">
-
-  <header style="text-align: center; padding: 40px 20px 20px;">
+  <header>
     <img src="https://i.imgur.com/ue2bOSK.gif" alt="Fantasma" style="height: 50px; vertical-align: middle;">
-    <h1 style="font-size: 1.8em; margin: 0; color: #ffffff; text-shadow: 2px 2px 4px #000000;">Buuh Bot</h1>
+    <h1>Buuh Bot</h1>
     <a href="https://discord.com/oauth2/authorize?client_id=1356649937970004251&scope=bot" class="botao-discord">
       <img src="https://media.tenor.com/WTbLkNWLriwAAAAi/couple-chase.gif" alt="add" style="height: 20px; vertical-align: middle; margin-right: 6px;">
       Add to Discord
     </a>
   </header>
 
+  <img src="https://media1.tenor.com/m/CE-lN924D-cAAAAd/brain-dump-max-g.gif" class="switch-mode" id="mode-switch" alt="switch">
+  <div id="mode-label">Modo Noite</div>
+
+  <footer style="position: fixed; bottom: 10px; width: 100%; font-size: 0.6em; color: #ccc; text-align: center;">
+    Buuh Bot © 2025 — Desenvolvido por JXVUM
+    <img src="https://media1.tenor.com/m/AgPB0b_4FfUAAAAC/deadpixels-dpgc.gif" style="height: 24px; vertical-align: middle;">
+  </footer>
+
   <script>
-    document.addEventListener('mousemove', (e) => {
-      const lanterna = document.getElementById('lanterna');
-      lanterna.style.setProperty('--x', e.clientX + 'px');
-      lanterna.style.setProperty('--y', e.clientY + 'px');
+    const switchBtn = document.getElementById('mode-switch');
+    const body = document.body;
+    const label = document.getElementById('mode-label');
+    let isDay = false;
+
+    switchBtn.addEventListener('click', () => {
+      isDay = !isDay;
+      if (isDay) {
+        body.classList.add('day');
+        label.innerText = 'Modo Dia';
+        switchBtn.src = 'https://media1.tenor.com/m/PilANcAf57UAAAAd/goofball-the-goofy-cartoon-ghost-max-g.gif';
+      } else {
+        body.classList.remove('day');
+        label.innerText = 'Modo Noite';
+        switchBtn.src = 'https://media1.tenor.com/m/CE-lN924D-cAAAAd/brain-dump-max-g.gif';
+      }
     });
   </script>
 </body>
