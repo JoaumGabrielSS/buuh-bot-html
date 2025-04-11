@@ -98,6 +98,29 @@
       from { opacity: 0; transform: translateY(-20px); }
       to { opacity: 1; transform: translateY(0); }
     }
+    .theme-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: rgba(0, 0, 0, 0.7);
+      border-radius: 12px;
+      padding: 8px 10px;
+      text-align: center;
+      cursor: pointer;
+      z-index: 999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .theme-toggle img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      margin-bottom: 4px;
+    }
+    .theme-toggle span {
+      font-size: 0.6em;
+    }
   </style>
 </head>
 <body>
@@ -140,8 +163,10 @@
     </a>
   </header>
 
-  <img src="https://media1.tenor.com/m/CE-lN924D-cAAAAd/brain-dump-max-g.gif" class="switch-mode" id="mode-switch" alt="switch" style="position: fixed; top: 20px; right: 20px; width: 60px; cursor: pointer; z-index: 1000;">
-  <div id="mode-label" style="position: fixed; top: 85px; right: 10px; font-size: 0.6em; background: rgba(0,0,0,0.5); padding: 4px 10px; border-radius: 8px; z-index: 1000;">Modo Noite</div>
+  <div class="theme-toggle" onclick="toggleTheme()">
+    <img id="theme-icon" src="https://media1.tenor.com/m/CE-lN924D-cAAAAd/brain-dump-max-g.gif" alt="Theme" />
+    <span id="mode-label">Modo Noite</span>
+  </div>
 
   <footer style="position: fixed; bottom: 10px; width: 100%; font-size: 0.6em; color: #ccc; text-align: center;">
     Buuh Bot © 2025 — Desenvolvido por JXVUM
@@ -149,23 +174,23 @@
   </footer>
 
   <script>
-    const switchBtn = document.getElementById('mode-switch');
+    const themeIcon = document.getElementById('theme-icon');
     const body = document.body;
     const label = document.getElementById('mode-label');
     let isDay = false;
 
-    switchBtn.addEventListener('click', () => {
+    function toggleTheme() {
       isDay = !isDay;
       if (isDay) {
         body.classList.add('day');
         label.innerText = 'Modo Dia';
-        switchBtn.src = 'https://media1.tenor.com/m/PilANcAf57UAAAAd/goofball-the-goofy-cartoon-ghost-max-g.gif';
+        themeIcon.src = 'https://media1.tenor.com/m/PilANcAf57UAAAAd/goofball-the-goofy-cartoon-ghost-max-g.gif';
       } else {
         body.classList.remove('day');
         label.innerText = 'Modo Noite';
-        switchBtn.src = 'https://media1.tenor.com/m/CE-lN924D-cAAAAd/brain-dump-max-g.gif';
+        themeIcon.src = 'https://media1.tenor.com/m/CE-lN924D-cAAAAd/brain-dump-max-g.gif';
       }
-    });
+    }
 
     document.addEventListener('mousemove', (e) => {
       const lanterna = document.getElementById('lanterna');
@@ -175,3 +200,4 @@
   </script>
 </body>
 </html>
+
