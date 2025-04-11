@@ -22,62 +22,96 @@
       background-repeat: no-repeat;
       transition: background-image 0.5s ease;
       min-height: 100vh;
+      overflow-x: hidden;
     }
     body.day {
       background-image: var(--bg-day);
     }
-    header {
-      text-align: center;
-      padding: 40px 20px 20px;
+    .lanterna {
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(255,255,255,0.08) 0%, transparent 300px);
+      z-index: 5;
     }
-    header h1 {
-      font-size: 1.5em;
-      margin: 0;
-      color: #ffffff;
-      text-shadow: 2px 2px 4px #000000;
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      padding: 10px;
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      z-index: 999;
     }
-    .botao-discord {
-      display: inline-block;
-      margin: 20px auto;
-      padding: 12px 30px;
-      background-color: #7289da;
-      border-radius: 30px;
-      color: white;
-      font-size: 0.9em;
+    nav a {
+      color: #fff;
       text-decoration: none;
-      animation: pulse 2s infinite;
-      box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
-      position: relative;
+      font-size: 0.7em;
+      transition: color 0.3s ease;
     }
-    @keyframes pulse {
-      0% { transform: scale(1); box-shadow: 0 0 10px rgba(255, 255, 255, 0.3); }
-      50% { transform: scale(1.05); box-shadow: 0 0 25px rgba(255, 255, 255, 0.6); }
-      100% { transform: scale(1); box-shadow: 0 0 10px rgba(255, 255, 255, 0.3); }
+    nav a:hover {
+      color: #a64aff;
     }
-    .switch-mode {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      cursor: pointer;
-      z-index: 1000;
-      width: 60px;
-    }
-    #mode-label {
-      position: fixed;
-      top: 85px;
-      right: 10px;
+    #commands-box, #support-box {
+      position: absolute;
+      top: 60px;
+      background: rgba(0,0,0,0.85);
+      padding: 14px;
+      border-radius: 10px;
       font-size: 0.6em;
-      background: rgba(0,0,0,0.5);
-      padding: 4px 10px;
-      border-radius: 8px;
-      z-index: 1000;
+      width: 300px;
+      display: none;
+    }
+    #commands-box {
+      left: 10px;
+      border: 2px solid #a64aff;
+    }
+    #support-box {
+      right: 10px;
+      border: 2px solid #55ddff;
     }
   </style>
 </head>
 <body>
-  <header>
+  <div class="lanterna" id="lanterna"></div>
+
+  <nav>
+    <a href="#" onmouseover="document.getElementById('support-box').style.display='block'" onmouseout="document.getElementById('support-box').style.display='none'">Support</a>
+    <a href="#" onmouseover="document.getElementById('commands-box').style.display='block'" onmouseout="document.getElementById('commands-box').style.display='none'">Commands</a>
+  </nav>
+
+  <div id="support-box">
+    <h3>Precisa de ajuda?</h3>
+    <p><strong>📌 Suporte via Discord:</strong></p>
+    <a href="https://discord.gg/SEU_LINK_SUPORTE" target="_blank">Clique aqui</a>
+    <p><strong>❓ Dúvidas comuns:</strong></p>
+    <ul>
+      <li>🔸 Bot não responde? Verifique permissões.</li>
+      <li>🔸 Use !passaro para lucro interativo.</li>
+      <li>🔸 Bot offline? Pode estar em manutenção.</li>
+    </ul>
+  </div>
+
+  <div id="commands-box">
+    <h3>Comandos do Buuh Bot</h3>
+    <ul>
+      <li><strong>!ping</strong> — Mostra a latência do bot.</li>
+      <li><strong>!fabrica</strong> — Mostra receitas de fabricação.</li>
+      <li><strong>!serverinfo</strong> — Info do servidor atual.</li>
+      <li><strong>!userinfo</strong> — Info de um usuário.</li>
+      <li><strong>!passaro</strong> — Calculadora de lucro.</li>
+    </ul>
+  </div>
+
+  <header style="text-align: center; padding: 80px 20px 20px;">
     <img src="https://i.imgur.com/ue2bOSK.gif" alt="Fantasma" style="height: 50px; vertical-align: middle;">
-    <h1>Buuh Bot</h1>
+    <h1 style="font-size: 1.8em; margin: 0; color: #ffffff; text-shadow: 2px 2px 4px #000000;">Buuh Bot</h1>
     <a href="https://discord.com/oauth2/authorize?client_id=1356649937970004251&scope=bot" class="botao-discord">
       <img src="https://media.tenor.com/WTbLkNWLriwAAAAi/couple-chase.gif" alt="add" style="height: 20px; vertical-align: middle; margin-right: 6px;">
       Add to Discord
@@ -85,7 +119,7 @@
   </header>
 
   <img src="https://media1.tenor.com/m/CE-lN924D-cAAAAd/brain-dump-max-g.gif" class="switch-mode" id="mode-switch" alt="switch">
-  <div id="mode-label">Modo Noite</div>
+  <div id="mode-label" style="position: fixed; top: 85px; right: 10px; font-size: 0.6em; background: rgba(0,0,0,0.5); padding: 4px 10px; border-radius: 8px; z-index: 1000;">Modo Noite</div>
 
   <footer style="position: fixed; bottom: 10px; width: 100%; font-size: 0.6em; color: #ccc; text-align: center;">
     Buuh Bot © 2025 — Desenvolvido por JXVUM
@@ -110,7 +144,12 @@
         switchBtn.src = 'https://media1.tenor.com/m/CE-lN924D-cAAAAd/brain-dump-max-g.gif';
       }
     });
+
+    document.addEventListener('mousemove', (e) => {
+      const lanterna = document.getElementById('lanterna');
+      lanterna.style.setProperty('--x', e.clientX + 'px');
+      lanterna.style.setProperty('--y', e.clientY + 'px');
+    });
   </script>
 </body>
 </html>
-
