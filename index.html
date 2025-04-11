@@ -27,20 +27,20 @@
     body.day {
       background-image: var(--bg-day);
     }
-    .lanterna {
+    .lanterna-dia {
       position: fixed;
       top: 0;
       left: 0;
       pointer-events: none;
       width: 100%;
       height: 100%;
-      background-image: var(--bg-day);
+      background-image: var(--bg-night);
       background-size: cover;
       background-position: center;
-      -webkit-mask-image: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(0,0,0,0.8) 100px, transparent 300px);
-      mask-image: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(0,0,0,0.8) 100px, transparent 300px);
+      -webkit-mask-image: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(255,255,255,1) 120px, transparent 300px);
+      mask-image: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(255,255,255,1) 120px, transparent 300px);
       z-index: 5;
-      opacity: 0.2;
+      opacity: 0.4;
     }
     nav {
       position: fixed;
@@ -105,11 +105,9 @@
     }
     .theme-toggle {
       position: fixed;
-      top: 100px;
+      top: 80px;
       right: 20px;
-      background: rgba(0, 0, 0, 0.7);
-      border-radius: 12px;
-      padding: 8px 10px;
+      padding: 6px 10px;
       text-align: center;
       cursor: pointer;
       z-index: 999;
@@ -118,18 +116,22 @@
       align-items: center;
     }
     .theme-toggle img {
-      width: 50px;
-      height: 50px;
+      width: 45px;
+      height: 45px;
       border-radius: 50%;
-      margin-bottom: 4px;
+      background-color: transparent;
+      margin-bottom: 2px;
     }
     .theme-toggle span {
       font-size: 0.6em;
+      background-color: rgba(0, 0, 0, 0.5);
+      padding: 2px 6px;
+      border-radius: 8px;
     }
   </style>
 </head>
 <body>
-  <div class="lanterna" id="lanterna"></div>
+  <div class="lanterna-dia" id="lanterna"></div>
 
   <nav>
     <a href="#" onmouseover="document.getElementById('support-box').style.display='block'" onmouseout="document.getElementById('support-box').style.display='none'">Support</a>
@@ -182,6 +184,7 @@
     const themeIcon = document.getElementById('theme-icon');
     const body = document.body;
     const label = document.getElementById('mode-label');
+    const lanterna = document.getElementById('lanterna');
     let isDay = false;
 
     function toggleTheme() {
@@ -190,15 +193,18 @@
         body.classList.add('day');
         label.innerText = 'Modo Dia';
         themeIcon.src = 'https://media1.tenor.com/m/PilANcAf57UAAAAd/goofball-the-goofy-cartoon-ghost-max-g.gif';
+        lanterna.style.backgroundImage = "var(--bg-night)";
+        lanterna.style.display = 'block';
       } else {
         body.classList.remove('day');
         label.innerText = 'Modo Noite';
         themeIcon.src = 'https://media1.tenor.com/m/CE-lN924D-cAAAAd/brain-dump-max-g.gif';
+        lanterna.style.backgroundImage = "var(--bg-day)";
+        lanterna.style.display = 'block';
       }
     }
 
     document.addEventListener('mousemove', (e) => {
-      const lanterna = document.getElementById('lanterna');
       lanterna.style.setProperty('--x', e.clientX + 'px');
       lanterna.style.setProperty('--y', e.clientY + 'px');
     });
